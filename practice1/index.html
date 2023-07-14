@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./main.css">
+</head>
+<body>
+
+    <section>
+        <h1 class="anim">this is one</h1>
+    </section>
+    <section>
+        <img src="2qzz.jpg" >
+        <h1 class="anim">this is two</h1>
+    </section>
+    <section>
+        <h1 class="anim">this is three</h1>
+    </section>
+    <svg viewBox="0 0 382 327" xmlns="http://www.w3.org/2000/svg">
+        <path id="our-text" fill="#fff" d="M1 1V326H381V1H18" />
+
+        <text y="40" font-size="30" font-family="Montserrat,Arial">
+            <textPath id="text-path" class="text" href="#our-text">
+                Yeah, let me check it out real quick
+            </textPath>
+        </text>
+    </svg>
+        
+    <script>
+        var textPath = document.getElementById("text-path");
+        function updateTextPathOffset(value){
+            textPath.setAttribute("startOffset",value);
+        }
+        function onScroll(){
+            requestAnimationFrame(function(){
+                //利用scrollY
+                updateTextPathOffset(window.scrollY * 1.5);
+            })
+        }
+        window.addEventListener("scroll",onScroll);
+
+        const titles = document.querySelectorAll(".anim");
+        observer = new IntersectionObserver((entries)=>{
+            entries.forEach(entry=>{
+                console.log(entry);
+                if(entry.isIntersecting){
+                    entry.target.classList.add('animate');
+                }else{
+                    entry.target.classList.remove('animate');
+                }                                                               
+            })
+        })
+        titles.forEach(title=>{
+            observer.observe(title);
+        })
+    </script>
+</body>
+</html>
